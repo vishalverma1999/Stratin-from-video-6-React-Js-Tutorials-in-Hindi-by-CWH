@@ -13,7 +13,13 @@ export default function TextForm(props) {
         setText(newText);
     }
 
-    const [text, setText]  = useState('Enter text here');  
+    const handleLoClick = ()=> {
+        console.log("Lowercase Was Clicked" + text);
+        let newText = text.toLowerCase();
+        setText(newText);
+    }
+
+    const [text, setText]  = useState('');  
    
                 // ye array destructuring jaisa kuch hai
                 // - text ek variable ya precisely ek state hai jiski default value hai Enter text here
@@ -22,13 +28,25 @@ export default function TextForm(props) {
     // text = "new text";  // wrong way to change the state
     // setText("new text");  // correct way to change the state
     return (
+        <>
         <div>
             <h1>{props.heading}</h1>
             <div className="mb-3 ">
                
                 <textarea className="form-control" value= {text} onChange={handleOnChange} id="myBox" rows="10"></textarea>
             </div>
-            <button className="btn btn-primary" onClick={handleUpClick} >Convert to Uppercase</button>
+            <button className="btn btn-primary mx-3" onClick={handleUpClick} >Convert to Uppercase</button>
+            <button className="btn btn-primary" onClick={handleLoClick} >Convert to Lowercase</button>
         </div>
+
+
+    <div className="container my-3">
+       <h1>Your text Summary</h1>
+       <p> {text.split(" ").length} words, {text.length} characters</p>
+       <p>{0.008 * text.split(" ").length} Minutes Read</p>
+       <h2>Preview</h2>
+       <p>{text}</p>
+    </div>
+    </>
     );
 }
