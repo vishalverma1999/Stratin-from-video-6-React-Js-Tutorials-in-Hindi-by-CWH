@@ -2,27 +2,37 @@ import './App.css';
 // import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import React, { useState } from 'react'
+
 function App() {
+  {/* HUM chahte ki hamari poori react website ki state ka control App.js se ho....aur iskika hum example dekhenge by enabling and disabling dark mode from App.js */ }
+  const [mode, setmode] = useState("light");
+
+  let toggleMode = () => {
+    if (mode === "light") {
+      setmode("dark");
+      document.body.style.backgroundColor = "#042743";
+    }
+    else {
+      setmode("light");
+      document.body.style.backgroundColor = "white";
+    }
+  }
+
   return (
     <>
-    {/* Navbar componenet hai ye, componeent is basicall dhaancha jise properties ki hisaab se fill kar sakte hai...like kisi exam ka application form is componenet and uske andar ki details is like properties....mote mote taur par */}
-   <Navbar title="Textutils" aboutText = "About Text" />    
-   {/*agr aap component ki andar ki cheezo ko manipulate karna chahte ho to wo props ya properties ki madad se hoga...props is just like jhola hai jisme hum yaha se kuch cheeze daaldenge aur fir Navbar componenet mein jaakar props. karke nikal lenge ya fir agar curly braces ke form mein props pass kiya hai to props. karne ki koi jarurat nahi direct hi jo pass kiya hai use apply kar sakte ho*/}
-   {/* AAP KABHI BHI PROPS KO COMPONENET MEIN JAAKR CHANGE NAHI KARENGE, app.js se jo decide kar liye aapne props uske naad change nahi honge componenet waale folder mein jaakar here it is Navbar....means PROPS ARE READ ONLY */}
+      <Navbar title="Textutils" aboutText="About Text" mode={mode} toggleMode={toggleMode} />
+      {/* <Navbar/>      */}
 
-  {/* <Navbar/>      */}
-  {/*defaultProps will be used*/}
+      <div className="container my-3 ">
+
+        <TextForm heading="Enter the text below to analyze" mode={mode} />
+        {/* <About/> */}
+      </div>
+
+    </>
 
 
-  <div className="container my-3 ">
-
-  <TextForm heading="Enter the text below to analyze"/>
-  {/* <About/> */}
-  </div>
-
-   </>
-
-   
   );
 }
 
