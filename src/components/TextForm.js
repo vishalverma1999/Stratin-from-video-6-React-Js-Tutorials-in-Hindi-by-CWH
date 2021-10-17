@@ -65,6 +65,22 @@ export default function TextForm(props) {
     setText(newText);
 }
 
+    const handleCopy = ()=>{
+        console.log("I am copy");
+        let textArea = document.getElementById("myBox");
+        textArea.select();   // selet() -> Select the contents of a text field:
+        navigator.clipboard.writeText(textArea.value);   
+        //1) The navigator object contains information about the browser
+        //2) navigator.clipboard -> The Clipboard API adds to the Navigator interface the read-only clipboard property, which returns the Clipboard object used to read and write the clipboard's contents.The Clipboard API can be used to implement cut, copy, and paste features within a web application.
+        //3) clipboard.writeText() -> The Clipboard interface's writeText() property writes the specified text string to the system clipboard. Text may be read back using either read() or readText()
+    }
+
+    const handleExtraSpaces = ()=>{
+        console.log("I am extra spaces");
+        let newText = text.split(/[ ]+/);  // ye regular expression hai....saying ek blank space ya usse jyada ho to use it to make different array elements with the help of split() method
+        setText(newText.join(" "));  // join/concat all the array elements and each array element separate by a space, The join() method creates and returns a new string by concatenating all of the elements in an array (or an array-like object), separated by commas( default separator) or a specified separator string(here it is blank space). If the array has only one item, then that item will be returned without using the separator 
+    }
+
     const [text, setText]  = useState('');  
    
                 // ye array destructuring jaisa kuch hai
@@ -86,6 +102,8 @@ export default function TextForm(props) {
             <button className="btn btn-primary mx-1" onClick={handleClearClick} >Clear</button>
             <button className="btn btn-primary mx-1" onClick={handleCapitalisedCaseClick} >Capitalised Case</button>
             <button className="btn btn-primary mx-1" onClick={handleAlternatingCaseClick} >aLtErNaTiNg cAsE</button>
+            <button className="btn btn-primary mx-1" onClick={handleCopy} >Copy Text</button>  
+            <button className="btn btn-primary mx-1" onClick={handleExtraSpaces} >Remove Extra spaces</button>
         </div>
 
 
