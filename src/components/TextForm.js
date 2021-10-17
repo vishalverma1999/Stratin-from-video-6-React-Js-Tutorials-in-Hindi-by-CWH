@@ -19,6 +19,52 @@ export default function TextForm(props) {
         setText(newText);
     }
 
+    const handleClearClick = ()=> {
+        console.log("Clear Was Clicked" + text);
+        let newText = '';
+        setText(newText);
+    }
+
+    const handleCapitalisedCaseClick = ()=> {
+        console.log("Capitalised Case Clicked");
+        let newText = text.split(' ');
+        // console.log(newText);
+        let capitalisedText = '';
+        newText.forEach(element => {
+        //    console.log(element.charAt(0).toUpperCase()+ element.substr(1));
+        capitalisedText += element.charAt(0).toUpperCase()+ element.substr(1).toLowerCase() + " ";
+        });
+        setText(capitalisedText);
+    }
+
+    const handleAlternatingCaseClick = ()=> {
+        console.log("aLtErNaTiNg Case Clicked");
+        let newText = text;
+        // console.log(newText);
+        let charAtEvenIndex ;
+        let charAtOddIndex ;
+        let array = [];
+       for (let index = 0; index < newText.length; index++) {
+
+           if(index%2 == 0){
+               charAtEvenIndex = newText.charAt(index);
+               array.push(charAtEvenIndex.toLowerCase());   // characters at even indexes pushed in array
+           }
+           else{
+           charAtOddIndex = newText.charAt(index);
+           console.log(charAtOddIndex);
+           array.push(charAtOddIndex.toUpperCase());     //   characters at odd indexes pushed in array
+           }
+
+    };
+    // console.log(array);
+    newText = ""
+    array.forEach(element=>{
+    newText += element;
+    });
+    setText(newText);
+}
+
     const [text, setText]  = useState('');  
    
                 // ye array destructuring jaisa kuch hai
@@ -26,7 +72,7 @@ export default function TextForm(props) {
                 // -setText-> jab bhi kuch update hoga wo setText function pakadlega aur fir uski madad se you can update text state
                 // - hum directly text = "dbdhbjk" karke update nahi kar sakte we have to use updation function that is setText
     // text = "new text";  // wrong way to change the state
-    // setText("new text");  // correct way to change the state
+    // setText("new text");  // correct syntax way to change the state, use it with some event handlers otherwise error will be thrown
     return (
         <>
         <div>
@@ -35,14 +81,17 @@ export default function TextForm(props) {
                
                 <textarea className="form-control" value= {text} onChange={handleOnChange} id="myBox" rows="10"></textarea>
             </div>
-            <button className="btn btn-primary mx-3" onClick={handleUpClick} >Convert to Uppercase</button>
-            <button className="btn btn-primary" onClick={handleLoClick} >Convert to Lowercase</button>
+            <button className="btn btn-primary mx-1" onClick={handleUpClick} >Convert to Uppercase</button>
+            <button className="btn btn-primary mx-1" onClick={handleLoClick} >Convert to Lowercase</button>
+            <button className="btn btn-primary mx-1" onClick={handleClearClick} >Clear</button>
+            <button className="btn btn-primary mx-1" onClick={handleCapitalisedCaseClick} >Capitalised Case</button>
+            <button className="btn btn-primary mx-1" onClick={handleAlternatingCaseClick} >aLtErNaTiNg cAsE</button>
         </div>
 
 
     <div className="container my-3">
        <h1>Your text Summary</h1>
-       <p> {text.split(" ").length} words, {text.length} characters</p>
+       <p> {text.split(' ').length} words, {text.length} characters</p>
        <p>{0.008 * text.split(" ").length} Minutes Read</p>
        <h2>Preview</h2>
        <p>{text}</p>
@@ -50,3 +99,7 @@ export default function TextForm(props) {
     </>
     );
 }
+
+
+
+
