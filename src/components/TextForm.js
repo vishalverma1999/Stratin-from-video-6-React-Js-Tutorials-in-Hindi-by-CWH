@@ -11,18 +11,21 @@ export default function TextForm(props) {
         console.log("Uppercase Was Clicked" + text);
         let newText = text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to Uppercase", "success");
     }
 
     const handleLoClick = ()=> {
         console.log("Lowercase Was Clicked" + text);
         let newText = text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to Lowercase", "success");
     }
 
     const handleClearClick = ()=> {
         console.log("Clear Was Clicked" + text);
         let newText = '';
         setText(newText);
+        props.showAlert("Text cleared", "success");
     }
 
     const handleCapitalisedCaseClick = ()=> {
@@ -35,6 +38,7 @@ export default function TextForm(props) {
         capitalisedText += element.charAt(0).toUpperCase()+ element.substr(1).toLowerCase() + " ";
         });
         setText(capitalisedText);
+        props.showAlert("Converted to Capitalized form", "success");
     }
 
     const handleAlternatingCaseClick = ()=> {
@@ -63,6 +67,7 @@ export default function TextForm(props) {
     newText += element;
     });
     setText(newText);
+    props.showAlert("Converted to Alternating case", "success");
 }
 
     const handleCopy = ()=>{
@@ -73,12 +78,14 @@ export default function TextForm(props) {
         //1) The navigator object contains information about the browser
         //2) navigator.clipboard -> The Clipboard API adds to the Navigator interface the read-only clipboard property, which returns the Clipboard object used to read and write the clipboard's contents.The Clipboard API can be used to implement cut, copy, and paste features within a web application.
         //3) clipboard.writeText() -> The Clipboard interface's writeText() property writes the specified text string to the system clipboard. Text may be read back using either read() or readText()
+        props.showAlert("Text Copied", "success");
     }
 
     const handleExtraSpaces = ()=>{
         console.log("I am extra spaces");
         let newText = text.split(/[ ]+/);  // ye regular expression hai....saying ek blank space ya usse jyada ho to use it to make different array elements with the help of split() method
         setText(newText.join(" "));  // join/concat all the array elements and each array element separate by a space, The join() method creates and returns a new string by concatenating all of the elements in an array (or an array-like object), separated by commas( default separator) or a specified separator string(here it is blank space). If the array has only one item, then that item will be returned without using the separator 
+        props.showAlert("Extra spaces removed", "success");
     }
 
     const [text, setText]  = useState('');  
