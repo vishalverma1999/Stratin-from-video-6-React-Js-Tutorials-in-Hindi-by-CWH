@@ -2,6 +2,15 @@
 import React, {useState} from 'react'   // useState ek hook hai, class based components we can use this.state to set state but in rfc we introduce hooks concept...basically bina class banaye class ke features ko use karpane is hooks
 
 export default function TextForm(props) {
+    const [text, setText]  = useState('');  
+    
+                // ye array destructuring jaisa kuch hai
+                // - text ek variable ya precisely ek state hai jiski default value hai Enter text here
+                // -setText-> jab bhi kuch update hoga wo setText function pakadlega aur fir uski madad se you can update text state
+                // - hum directly text = "dbdhbjk" karke update nahi kar sakte we have to use updation function that is setText
+    // text = "new text";  // wrong way to change the state
+    // setText("new text");  // correct syntax way to change the state, use it with some event handlers otherwise error will be thrown
+
     const handleOnChange = (event)=> {
         console.log("OnChange");
         setText(event.target.value);   {/* textarea mein jo bhi pehle se tha aur jo bhi extra kuch likhoge nasically textarea ka jo bhi content hai ya jitni bhi values usme present hai use setText mein lekar Text state ko dedo, ye sab updation text state mein hoga jo ki equals to hai value attribute,hence text state update ho rahi hai*/}
@@ -87,15 +96,21 @@ export default function TextForm(props) {
         setText(newText.join(" "));  // join/concat all the array elements and each array element separate by a space, The join() method creates and returns a new string by concatenating all of the elements in an array (or an array-like object), separated by commas( default separator) or a specified separator string(here it is blank space). If the array has only one item, then that item will be returned without using the separator 
         props.showAlert("Extra spaces removed", "success");
     }
+    
+    let counter = 0;
+    let textArray = text.split(' ');
+    textArray.forEach((element)=>{
+        // mySet.add(element);
+        // console.log(mySet);
+        if(element === ''){
+            counter++;
+        }
+        else{
+            counter;
+        }
+    })
+    // console.log(counter);
 
-    const [text, setText]  = useState('');  
-   
-                // ye array destructuring jaisa kuch hai
-                // - text ek variable ya precisely ek state hai jiski default value hai Enter text here
-                // -setText-> jab bhi kuch update hoga wo setText function pakadlega aur fir uski madad se you can update text state
-                // - hum directly text = "dbdhbjk" karke update nahi kar sakte we have to use updation function that is setText
-    // text = "new text";  // wrong way to change the state
-    // setText("new text");  // correct syntax way to change the state, use it with some event handlers otherwise error will be thrown
     return (
         <>
         <div className = "container" style={{color: props.mode=== "dark"? 'white': 'black'}} >
@@ -116,8 +131,8 @@ export default function TextForm(props) {
 
     <div className="container my-3" style={{color: props.mode=== "dark"? 'white': 'black'}}>
        <h1>Your text Summary</h1>
-       <p> {text.split(' ').length} words, {text.length} characters</p>
-       <p>{0.008 * text.split(" ").length} Minutes Read</p>
+       <p> {text.split(" ").length-counter} words, {text.length} characters</p>
+       <p>{0.008 * (text.split(" ").length-counter)} Minutes Read</p>
        <h2>Preview</h2>
        <p>{text.length>0? text : "Enter some text in textbox above to preview here!!"}</p>
     </div>

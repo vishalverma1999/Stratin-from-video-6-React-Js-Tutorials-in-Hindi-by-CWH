@@ -22,6 +22,9 @@ function App() {
     }
   }
 
+
+
+
   const [alert, setalert] = useState(null);    // alert state
   const showAlert = (message, type)=>{      // type-> bootstrap ka type hai like if type is success to green color show hoga, danger-> red
     setalert({
@@ -35,7 +38,7 @@ function App() {
 
   return (
     <>
-      <Navbar title="Textutils" aboutText="About Text" mode={mode} toggleMode={toggleMode} />
+      <Navbar title="Textutils" aboutText="About Text" mode={mode} toggleMode={toggleMode}/>
       {/* <Navbar/>      */}
       <Alert alert = {alert} />
 
