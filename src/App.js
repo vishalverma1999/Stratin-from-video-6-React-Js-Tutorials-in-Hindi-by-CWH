@@ -1,15 +1,14 @@
 import './App.css';
-import About from './components/About';
+// import About from './components/About';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
 import Alert from './components/Alert';
 import React, { useState } from 'react'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
+// import {
+//   BrowserRouter as Router,
+//   Switch,
+//   Route
+// } from "react-router-dom";
 
 function App() {
   {/* HUM chahte ki hamari poori react website ki state ka control App.js se ho....aur iskika hum example dekhenge by enabling and disabling dark mode from App.js */ }
@@ -46,23 +45,23 @@ function App() {
 
   return (
     <>
-      <Router>
+      {/* <Router> */}
         <Navbar title="Textutils" aboutText="About" mode={mode} toggleMode={toggleMode} />
         {/* <Navbar/>      */}
         <Alert alert={alert} />
 
         <div className="container my-3 ">
-          <Switch>
-            <Route exact path="/about">     {/*use exact to Avoid confusion in situations like componenet1 --> /about and componenet2 --> /about/home */}
-              <About />
-            </Route>
-            <Route exact path="/">
+          {/* <Switch>
+            <Route exact path="/about">     use exact to Avoid confusion in situations like componenet1 --> /about and componenet2 --> /about/home */}
+              {/* <About /> */}
+            {/* </Route>
+            <Route exact path="/"> */}
               <TextForm heading="Enter the text below to analyze" mode={mode} showAlert={showAlert} />
-            </Route>
-          </Switch>
+            {/* </Route> */}
+          {/* </Switch> */}
         </div>
         
-      </Router>
+      {/* </Router> */}
     </>
 
 
