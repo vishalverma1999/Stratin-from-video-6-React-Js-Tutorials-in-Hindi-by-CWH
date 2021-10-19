@@ -87,6 +87,9 @@ export default function TextForm(props) {
         //1) The navigator object contains information about the browser
         //2) navigator.clipboard -> The Clipboard API adds to the Navigator interface the read-only clipboard property, which returns the Clipboard object used to read and write the clipboard's contents.The Clipboard API can be used to implement cut, copy, and paste features within a web application.
         //3) clipboard.writeText() -> The Clipboard interface's writeText() property writes the specified text string to the system clipboard. Text may be read back using either read() or readText()
+
+        // We want the remove the select attribute functionality once copied
+        document.getSelection().removeAllRanges();
         props.showAlert("Text Copied", "success");
     }
 
@@ -97,44 +100,52 @@ export default function TextForm(props) {
         props.showAlert("Extra spaces removed", "success");
     }
     
-    let counter = 0;
-    let textArray = text.split(' ');
-    textArray.forEach((element)=>{
-        // mySet.add(element);
-        // console.log(mySet);
-        if(element === ''){
-            counter++;
-        }
-        else{
-            counter;
-        }
-    })
+    // Ye method to resolve problem of no. of words made by me, but CWH used buit-in filter() METHOD
+    // let counter = 0;
+    // let textArray = text.split(' ');
+    // textArray.forEach((element)=>{
+    //     if(element === ''){
+    //         counter++;
+    //     }
+    //     else{
+    //         counter;
+    //     }
+    // })
     // console.log(counter);
 
     return (
         <>
         <div className = "container" style={{color: props.mode=== "dark"? 'white': 'black'}} >
-            <h1>{props.heading}</h1>
+            <h1 className="mb-4" >{props.heading}</h1>
             <div className="mb-3 ">
                
                 <textarea className="form-control" style={{backgroundColor: props.mode=== "dark"? 'grey': 'white',color: props.mode=== "dark"? 'white': 'black' }} value= {text} onChange={handleOnChange} id="myBox" rows="10"></textarea>
             </div>
-            <button className="btn btn-primary mx-1" onClick={handleUpClick} >Convert to Uppercase</button>
-            <button className="btn btn-primary mx-1" onClick={handleLoClick} >Convert to Lowercase</button>
-            <button className="btn btn-primary mx-1" onClick={handleClearClick} >Clear</button>
-            <button className="btn btn-primary mx-1" onClick={handleCapitalisedCaseClick} >Capitalised Case</button>
-            <button className="btn btn-primary mx-1" onClick={handleAlternatingCaseClick} >aLtErNaTiNg cAsE</button>
-            <button className="btn btn-primary mx-1" onClick={handleCopy} >Copy Text</button>  
-            <button className="btn btn-primary mx-1" onClick={handleExtraSpaces} >Remove Extra spaces</button>
+            {/* disabled is an attribute to disable the button */}
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleUpClick} >Convert to Uppercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleLoClick} >Convert to Lowercase</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleClearClick} >Clear</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCapitalisedCaseClick} >Capitalised Case</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleAlternatingCaseClick} >aLtErNaTiNg cAsE</button>
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleCopy} >Copy Text</button>  
+            <button disabled={text.length===0} className="btn btn-primary mx-1 my-1" onClick={handleExtraSpaces} >Remove Extra spaces</button>
         </div>
 
 
     <div className="container my-3" style={{color: props.mode=== "dark"? 'white': 'black'}}>
        <h1>Your text Summary</h1>
-       <p> {text.split(" ").length-counter} words, {text.length} characters</p>
-       <p>{0.008 * (text.split(" ").length-counter)} Minutes Read</p>
+       {/* <p> {text.split(" ").length-counter} words, {text.length} characters</p>    */}
+       {/*method made by me*/}
+       <p> {text.split(" ").filter((element)=>{return element.length !== 0}).length} words, {text.length} characters</p> 
+        {/*method made by CWH*/}
+       {/* 
+        --> The filter() method creates an array filled with all array elements that pass a test (provided by a function).
+        --> filter() does not execute the function for empty array elements. So filter((element)=>{return element.length !== 0})  ===  filter((element)=>{return element})
+        --> filter() does not change the original array.
+      */}
+       <p>{0.008 * (text.split(" ").filter((element)=>{return element.length !== 0}).length)} Minutes Read</p>
        <h2>Preview</h2>
-       <p>{text.length>0? text : "Enter some text in textbox above to preview here!!"}</p>
+       <p>{text.length>0? text : "Nothing to preview here!!"}</p>
     </div>
     </>
     );
