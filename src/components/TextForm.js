@@ -80,13 +80,15 @@ export default function TextForm(props) {
 }
 
     const handleCopy = ()=>{
-        console.log("I am copy");
-        let textArea = document.getElementById("myBox");
-        textArea.select();   // selet() -> Select the contents of a text field:
-        navigator.clipboard.writeText(textArea.value);   
+        // console.log("I am copy");
+        // let textArea = document.getElementById("myBox");
+        // textArea.select();   // selet() -> Select the contents of a text field:
+        // navigator.clipboard.writeText(textArea.value);   
         //1) The navigator object contains information about the browser
         //2) navigator.clipboard -> The Clipboard API adds to the Navigator interface the read-only clipboard property, which returns the Clipboard object used to read and write the clipboard's contents.The Clipboard API can be used to implement cut, copy, and paste features within a web application.
         //3) clipboard.writeText() -> The Clipboard interface's writeText() property writes the specified text string to the system clipboard. Text may be read back using either read() or readText()
+
+        navigator.clipboard.writeText(text); // agar hum nabigator api ko use kar rahe hai to select wagerh karne ki koi jarurat nahi directly likhdo aur kaam ho jaayega unlikely jo hum 83-86 line tak kar rahe the
 
         // We want the remove the select attribute functionality once copied
         document.getSelection().removeAllRanges();
@@ -136,14 +138,17 @@ export default function TextForm(props) {
        <h1>Your text Summary</h1>
        {/* <p> {text.split(" ").length-counter} words, {text.length} characters</p>    */}
        {/*method made by me*/}
-       <p> {text.split(" ").filter((element)=>{return element.length !== 0}).length} words, {text.length} characters</p> 
+       <p> {text.split(/\s+/).filter((element)=>{return element.length !== 0}).length} words, {text.length} characters</p> 
         {/*method made by CWH*/}
        {/* 
         --> The filter() method creates an array filled with all array elements that pass a test (provided by a function).
         --> filter() does not execute the function for empty array elements. So filter((element)=>{return element.length !== 0})  ===  filter((element)=>{return element})
         --> filter() does not change the original array.
       */}
-       <p>{0.008 * (text.split(" ").filter((element)=>{return element.length !== 0}).length)} Minutes Read</p>
+      {/* split(' ') --> is way se array banane se agar next line mein bhi koi word likhte ho enter maarke to word count increase nahi ho raha kyunki next line mein jaane se naya array element nahi ban raha hai..HENCE.......
+      we used regular expression, \s means blank space + next line + much more(search \s metacharacter on google)
+      */}
+       <p>{0.008 * (text.split(/\s+/).filter((element)=>{return element.length !== 0}).length)} Minutes Read</p>
        <h2>Preview</h2>
        <p>{text.length>0? text : "Nothing to preview here!!"}</p>
     </div>
